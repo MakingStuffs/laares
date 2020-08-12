@@ -1,0 +1,39 @@
+.site-header {
+  padding: 1rem;
+  overflow: auto;
+  border-bottom: 1px solid rgba(black, 0.1);
+  background-color: $color__background-header;
+
+  .site-branding {
+    max-width: 60%;
+    
+    h1,
+    .site-title {
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: $color__text-main;
+      margin: 0;
+    }
+
+    .custom-logo-link {
+      max-height: 50px;
+      display: block;
+      overflow: hidden;
+      max-width: 250px;
+      height: 50px;
+    }
+    img {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+
+  .site-description {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: $color__text-main;
+    margin: 0;
+  }
+}
