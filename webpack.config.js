@@ -7,7 +7,7 @@ module.exports = {
   mode: "development",
   devtool: "inline-source-map",
   entry: {
-    frontend: ["./src/js/drawer-menus.js", "./src/sass/style.scss", "./src/sass/woocommerce.scss"],
+    frontend: ["./src/js/drawer-menus.js", "./src/sass/style.scss"],
     backend: "./src/js/customizer.js",
   },
   module: {
