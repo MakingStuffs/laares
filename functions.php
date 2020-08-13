@@ -205,3 +205,22 @@ if (class_exists('WooCommerce')) {
  */
 
 require get_template_directory() . '/inc/stuffs-actions.php';
+
+/**
+ * Simple function to limit the number of words in a give string
+ * @param string string to altered
+ * @param number number of words to limit to
+ * @return string limited to $limit characters
+ */
+if (!function_exists('making_stuffs_word_limit')) {
+	function making_stuffs_word_limit($text, $limit)
+	{
+		if (str_word_count($text) > $limit) {
+			$words = str_word_count($text, 2);
+			$word_indexes = array_keys($words);
+			$text = trim(substr($text, 0, $word_indexes[$limit]));
+			$text .= "...";
+		}
+		return $text;
+	}
+}
