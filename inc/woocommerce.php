@@ -46,7 +46,6 @@ add_action('after_setup_theme', 'making_stuffs_woocommerce_setup');
  */
 function making_stuffs_woocommerce_scripts()
 {
-	wp_enqueue_style('making-stuffs-woocommerce-style', get_template_directory_uri() . '/woocommerce.css', array(), _S_VERSION);
 
 	$font_path   = WC()->plugin_url() . '/assets/fonts/';
 	$inline_font = '@font-face {
@@ -60,15 +59,12 @@ function making_stuffs_woocommerce_scripts()
 			font-style: normal;
 		}';
 
-	wp_add_inline_style('making-stuffs-woocommerce-style', $inline_font);
+	wp_add_inline_style('making-stuffs-style', $inline_font);
 }
 add_action('wp_enqueue_scripts', 'making_stuffs_woocommerce_scripts');
 
 /**
  * Disable the default WooCommerce stylesheet.
- *
- * Removing the default WooCommerce stylesheet and enqueing your own will
- * protect you during WooCommerce core updates.
  *
  * @link https://docs.woocommerce.com/document/disable-the-default-stylesheet/
  */
@@ -303,3 +299,23 @@ if ( !function_exists( 'making-stuffs_after_shop_loop_item' ) ) {
 	<?php }
 }
 add_action('woocommerce_after_shop_loop_item', 'stuffs_after_shop_loop_item', 4);
+
+/**
+ * Reorder the title and rating on the single product page
+ */
+
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10);
+add_action('woocommerce_single_product_summary', 'woocommerce_template_single_rating', 5);
+
+/**
+ * Change the priority of the excerpt
+ */
+remove_action('woocommerce_single_product_summary','woocommerce_template_single_excerpt', 20);
+add_action('woocommerce_single_product_summary','woocommerce_template_single_excerpt', 7);
+
+/**
+ * Move the sale flash into the product's info container
+ */
+
+ remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10);
+ add_action('woocommerce_single_product_summary', 'woocommerce_show_product_sale_flash', 0);
