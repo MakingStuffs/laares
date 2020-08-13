@@ -5,8 +5,8 @@
     background-color: #eee;
     display: flex;
     border-radius: 5rem;
-    padding: $tiny-padding $md-padding;
     position: relative;
+    background-clip: content-box;
 
     &:focus-within {
         border-color: $color__border-button-focus;
@@ -17,6 +17,8 @@
     input, 
     button {
         appearance: none;
+        padding: $tiny-padding $md-padding;
+        margin: $tiny-margin;
     };
 
     button,
@@ -82,5 +84,42 @@
         }
     }
 
+    &.has-select {
+
+        &:hover {
+            background-color: #fff;
+            box-shadow: $container-shadow;
+        }
+
+        label,
+        select {
+            padding: $md-padding $big-padding;
+        }
+
+        label {
+            background-color: $button-hover;
+            color: $button-hover-text;
+            border-radius: 5rem 0 0 5rem;
+        }
+        select {
+            appearance: none;
+            border: none;
+            background-color: transparent;
+            border-radius: 0 5rem 5rem 0;
+            padding-right: $big-margin;
+            cursor: pointer;
+            transition: 0.3s ease;
+            position: relative;
+            width: 100%;
+
+            &:hover {
+                background-color: rgba($button-hover, 0.1);
+            }
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
 
 }

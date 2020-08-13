@@ -50,6 +50,11 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 
 --------------------------------------------------------------*/
 
+/* Import Woocommerce default styles
+---------------------------------------------------------------*/
+@import "./woocommerce.scss";
+
+
 // Import variables and mixins.
 @import "abstracts/abstracts";
 

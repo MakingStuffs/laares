@@ -1,0 +1,28 @@
+.single-product {
+    .variations {
+        align-items: center;
+
+        .variation-row {
+            min-width: 200px;
+            width: 100%;
+            max-width: 400px;
+        }
+    }
+
+    .single_variation_wrap {
+        max-width: 400px;
+        min-width: 200px;
+        width: 100%;
+        align-self: center;
+    }
+}
+
+form.variations_form.cart {
+    display: flex;
+    flex-direction: column;
+
+    .quantity.stuffs-input {
+        display: inline-block;
+        margin: auto;
+    }
+}
