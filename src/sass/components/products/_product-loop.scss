@@ -1,0 +1,18 @@
+ul.products {
+
+    li.product {
+        position: relative;
+
+        .onsale {
+            position: absolute;
+            top: 0;
+            width: calc(100% - 4px);
+            padding: 0.25rem 0.5rem;
+            font-weight: 200;
+            text-align: center;
+            background-color: royalblue;
+            color: rgba(white, 0.9);
+            margin-top: 2px;
+        }
+    }
+}
