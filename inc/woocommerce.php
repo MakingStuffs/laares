@@ -255,7 +255,7 @@ if (!function_exists('making_stuffs_after_single_product_summary')) {
 	{
 		?>
 		</div>
-<?php
+	<?php
 	}
 }
 add_action('woocommerce_after_single_product_summary', 'making_stuffs_after_single_product_summary', 5, 0);
@@ -284,19 +284,21 @@ remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add
 /**
  * Put product loop content into a div
  */
-if ( !function_exists( 'making-stuffs_before_shop_loop_title' ) ) {
-	function stuffs_before_shop_loop_title () { ?>
-	<div class="sm-pad">
-	<?php }
+if (!function_exists('making-stuffs_before_shop_loop_title')) {
+	function stuffs_before_shop_loop_title()
+	{ ?>
+		<div class="sm-pad">
+		<?php }
 }
 add_action('woocommerce_before_shop_loop_item_title', 'stuffs_before_shop_loop_title', 11);
 /**
  * Close product loop content div
  */
-if ( !function_exists( 'making-stuffs_after_shop_loop_item' ) ) {
-	function stuffs_after_shop_loop_item () { ?>
-	</div>
-	<?php }
+if (!function_exists('making-stuffs_after_shop_loop_item')) {
+	function stuffs_after_shop_loop_item()
+	{ ?>
+		</div>
+		<?php }
 }
 add_action('woocommerce_after_shop_loop_item', 'stuffs_after_shop_loop_item', 4);
 
@@ -310,12 +312,44 @@ add_action('woocommerce_single_product_summary', 'woocommerce_template_single_ra
 /**
  * Change the priority of the excerpt
  */
-remove_action('woocommerce_single_product_summary','woocommerce_template_single_excerpt', 20);
-add_action('woocommerce_single_product_summary','woocommerce_template_single_excerpt', 7);
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20);
+add_action('woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 7);
 
 /**
  * Move the sale flash into the product's info container
  */
 
- remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10);
- add_action('woocommerce_single_product_summary', 'woocommerce_show_product_sale_flash', 0);
+remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10);
+add_action('woocommerce_single_product_summary', 'woocommerce_show_product_sale_flash', 0);
+
+/**
+ * Render the add to cart button after the input field
+ */
+
+if (!function_exists('making_stuffs_single_add_to_cart_button')) {
+	function making_stuffs_single_add_to_cart()
+	{
+		global $product;
+
+		if ($product->is_sold_individually()) { ?>
+			<button type="submit" name="add-to-cart" class="no-input single_add_to_cart_button button alt has-icon">
+				Add to Basket
+				<i class="stuffs-basket"></i>
+				<span class="tooltip__top">
+					<?php echo esc_html($product->single_add_to_cart_text()); ?>
+				</span>
+			</button>
+
+		<?php } else { ?>
+
+			<button type="submit" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>" class="single_add_to_cart_button button alt has-icon">
+				<i class="stuffs-basket"></i>
+				<span class="tooltip__top">
+					<?php echo esc_html($product->single_add_to_cart_text()); ?>
+				</span>
+			</button>
+
+<?php }
+	}
+}
+add_action('woocommerce_after_add_to_cart_quantity', 'making_stuffs_single_add_to_cart', 0);
