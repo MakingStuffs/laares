@@ -29,9 +29,14 @@ $price = $product->get_price();
 $low_stock = $product->get_low_stock_amount();
 $symbol = get_woocommerce_currency_symbol();
 
+	// If it is a grouped product the price will be handled by the grouped table.
+	if ( $product->is_type('grouped') ) {
+		return;
+	}
+
 ?>
 
-<div class="single-product-price-stock">
+<div class="single-product-price">
 	<?php
 	// Variable product
 	if ($product->is_type('variable')) {
@@ -96,22 +101,5 @@ $symbol = get_woocommerce_currency_symbol();
 			</div>
 		<?php
 		}
-	} elseif ($product->is_type('grouped')) {
-		// Grouped product 
-	}
-
-	// Normal product, not on sale
-	if (isset($low_stock)) {
-		// Low stock
-	}
-
-	if ($stock_status != "instock") {
-		// out of stock
-	} else {
-		?>
-		<div class="stock sm-margin">
-			<span inStock>Currently in stock</span>
-		</div>
-
-	<?php } ?>
+	} ?>
 </div>
