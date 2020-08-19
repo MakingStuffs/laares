@@ -143,23 +143,14 @@ if (!function_exists('making_stuffs_woocommerce_wrapper_after')) {
 }
 add_action('woocommerce_after_main_content', 'making_stuffs_woocommerce_wrapper_after');
 
-/**
- * Sample implementation of the WooCommerce Mini Cart.
- *
- * You can add the WooCommerce Mini Cart to header.php like so ...
- *
-	<?php
-		if ( function_exists( 'making_stuffs_woocommerce_header_cart' ) ) {
-			making_stuffs_woocommerce_header_cart();
-		}
-	?>
- */
 
 if (!function_exists('making_stuffs_woocommerce_cart_link_fragment')) {
 	/**
 	 * Cart Fragments.
 	 *
 	 * Ensure cart contents update when products are added to the cart via AJAX.
+	 * Calls the making_stuffs_drawer_cart function and assigns its 
+	 * output to the div.drawer-cart element in the fragments array.
 	 *
 	 * @param array $fragments Fragments to refresh via AJAX.
 	 * @return array Fragments to refresh via AJAX.
@@ -167,8 +158,8 @@ if (!function_exists('making_stuffs_woocommerce_cart_link_fragment')) {
 	function making_stuffs_woocommerce_cart_link_fragment($fragments)
 	{
 		ob_start();
-		making_stuffs_woocommerce_cart_link();
-		$fragments['a.cart-contents'] = ob_get_clean();
+		making_stuffs_drawer_cart();
+		$fragments['div.drawer-cart'] = ob_get_clean();
 
 		return $fragments;
 	}
@@ -200,37 +191,21 @@ if (!function_exists('making_stuffs_woocommerce_cart_link')) {
 	}
 }
 
-if (!function_exists('making_stuffs_woocommerce_header_cart')) {
-	/**
-	 * Display Header Cart.
-	 *
-	 * @return void
-	 */
-	function making_stuffs_woocommerce_header_cart()
+/**
+ * Uses the get_template_part function in WP to get the 
+ * drawer basket's contents. Added to the making_stuffs_drawer_basket_contents
+ * hook.
+ * 
+ * @return void
+ * 
+ */
+if (!function_exists('making_stuffs_drawer_cart')) {
+	function making_stuffs_drawer_cart()
 	{
-		if (is_cart()) {
-			$class = 'current-menu-item';
-		} else {
-			$class = '';
-		}
-	?>
-		<ul id="site-header-cart" class="site-header-cart">
-			<li class="<?php echo esc_attr($class); ?>">
-				<?php making_stuffs_woocommerce_cart_link(); ?>
-			</li>
-			<li>
-				<?php
-				$instance = array(
-					'title' => '',
-				);
-
-				the_widget('WC_Widget_Cart', $instance);
-				?>
-			</li>
-		</ul>
-	<?php
+		get_template_part('template-parts/woocommerce/basket', 'contents-drawer');
 	}
 }
+add_action('making_stuffs_drawer_basket_contents', 'making_stuffs_drawer_cart');
 
 /**
  * Place single product gallery and summary into a flex row
@@ -291,6 +266,7 @@ if (!function_exists('making-stuffs_before_shop_loop_title')) {
 		<?php }
 }
 add_action('woocommerce_before_shop_loop_item_title', 'stuffs_before_shop_loop_title', 11);
+
 /**
  * Close product loop content div
  */
@@ -305,7 +281,6 @@ add_action('woocommerce_after_shop_loop_item', 'stuffs_after_shop_loop_item', 4)
 /**
  * Reorder the title and rating on the single product page
  */
-
 remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10);
 add_action('woocommerce_single_product_summary', 'woocommerce_template_single_rating', 5);
 
@@ -318,21 +293,24 @@ add_action('woocommerce_single_product_summary', 'woocommerce_template_single_ex
 /**
  * Move the sale flash into the product's info container
  */
-
 remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10);
 add_action('woocommerce_single_product_summary', 'woocommerce_show_product_sale_flash', 0);
 
 /**
- * Render the add to cart button after the input field
+ * Render the add to cart button after the input field.
+ * Takes one argument -- whether or not this button is part of a
+ * group of inputs. If so hides the add to cart text;
+ * 
+ * @param boolean $for_group defaults to false
+ * @return void
  */
-
 if (!function_exists('making_stuffs_single_add_to_cart_button')) {
-	function making_stuffs_single_add_to_cart()
+	function making_stuffs_single_add_to_cart($for_group = false)
 	{
 		global $product;
 
-		if ($product->is_sold_individually()) { ?>
-			<button type="submit" name="add-to-cart" class="no-input single_add_to_cart_button button alt has-icon">
+		if ($product->is_sold_individually()) : ?>
+			<button type="submit" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>" class="no-input single_add_to_cart_button button alt has-icon">
 				Add to Basket
 				<i class="stuffs-basket"></i>
 				<span class="tooltip__top">
@@ -340,16 +318,126 @@ if (!function_exists('making_stuffs_single_add_to_cart_button')) {
 				</span>
 			</button>
 
-		<?php } else { ?>
+		<?php else : ?>
 
 			<button type="submit" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>" class="single_add_to_cart_button button alt has-icon">
+				<?php echo $for_group ? '' : 'Add to cart'; ?>
 				<i class="stuffs-basket"></i>
 				<span class="tooltip__top">
 					<?php echo esc_html($product->single_add_to_cart_text()); ?>
 				</span>
 			</button>
 
-<?php }
+		<?php endif;
 	}
 }
-add_action('woocommerce_after_add_to_cart_quantity', 'making_stuffs_single_add_to_cart', 0);
+add_action('woocommerce_after_add_to_cart_quantity', 'making_stuffs_single_add_to_cart', 0, 1);
+
+/**
+ * Return sale price with new price first
+ * 
+ * @return string containing the HTML markup for the price of sale items.
+ */
+if (!function_exists('making_stuffs_sale_price_html')) {
+	function making_stuffs_sale_price_html()
+	{
+		global $product;
+
+		$regular_price = number_format($product->get_regular_price(), 2);
+		$sale_price = number_format($product->get_sale_price(), 2);
+		$currency_symbol = get_woocommerce_currency_symbol();
+		$html = '<ins>'
+			. '<span class="woocommerce-Price-amount amount">'
+			. '<span class="woocommerce-Price-currencySymbol">'
+			. $currency_symbol
+			. '</span>'
+			. $sale_price
+			. '</span>'
+			. '</ins>'
+			. '<del>'
+			. '<span class="woocommerce-Price-amount amount">'
+			. '<span class="woocommerce-Price-currencySymbol">'
+			. $currency_symbol
+			. '</span>'
+			. $regular_price
+			. '</span>'
+			. '</del>';
+
+		return $html;
+	}
+}
+
+/**
+ * Render a HTMl element with the stock status for the current product
+ * 
+ * @return void
+ */
+
+if (!function_exists('making_stuffs_stock_status')) {
+	function making_stuffs_stock_status()
+	{
+		global $product;
+
+		$stock_count = $product->get_stock_quantity();
+		$low_amount = $product->get_low_stock_amount();
+		$low_stock = $stock_count <= $low_amount;
+		if (!$product->is_in_stock()) { ?>
+			<div class="stuffs-row justify-center align-center big-margin-b">
+				<span class="stock" outStock>Out of Stock</span>
+			</div>
+			<?php } else {
+			if ($product->managing_stock()) { ?>
+				<span class="stock" <?php echo $low_stock ? 'lowStock' : 'inStock'; ?>>
+					<?php echo $low_stock ? 'Low stock' : 'In stock'; ?>
+					<span class="stock-count tooltip__top">
+						<?php echo $low_stock ? 'Only ' . $stock_count . ' left' : $stock_count . ' in stock'; ?>
+					</span>
+				</span>
+			<?php } else { ?>
+				<span class="stock" inStock>
+					In stock
+				</span>
+		<?php }
+		}
+	}
+}
+add_action('woocommerce_before_add_to_cart_button', 'making_stuffs_stock_status');
+add_action('making_stuffs_product_stock', 'making_stuffs_stock_status');
+
+/**
+ * Output content before the shop loop
+ */
+
+if (!function_exists('making_stuffs_before_shop_loop')) {
+	function making_stuffs_before_shop_loop()
+	{ ?>
+		<section class="stuffs-shop-loop">
+			<div class="woocommerce-products-header">
+				<?php if (apply_filters('woocommerce_show_page_title', true)) : ?>
+					<h2 class="woocommerce-products-header__title page-title"><?php woocommerce_page_title(); ?></h2>
+				<?php endif; ?>
+
+				<?php
+				/**
+				 * Hook: woocommerce_archive_description.
+				 *
+				 * @hooked woocommerce_taxonomy_archive_description - 10
+				 * @hooked woocommerce_product_archive_description - 10
+				 */
+				do_action('woocommerce_archive_description');
+				?>
+			</div>
+		<?php };
+}
+add_action('woocommerce_before_shop_loop', 'making_stuffs_before_shop_loop', 5, 0);
+/**
+ * Output content after the woocommerce shop loop
+ */
+
+if (!function_exists('making_stuffs_after_shop_loop')) {
+	function making_stuffs_after_shop_loop()
+	{ ?>
+		</section>
+		<?php };
+}
+add_action('woocommerce_after_shop_loop', 'making_stuffs_after_shop_loop', 10, 0);
