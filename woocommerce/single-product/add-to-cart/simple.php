@@ -24,15 +24,15 @@ if (!$product->is_purchasable()) {
 	return;
 }
 
-echo wc_get_stock_html($product); // WPCS: XSS ok.
-
 if ($product->is_in_stock()) : ?>
 
 	<?php do_action('woocommerce_before_add_to_cart_form'); ?>
 
 	<form class="cart" action="<?php echo esc_url(apply_filters('woocommerce_add_to_cart_form_action', $product->get_permalink())); ?>" method="post" enctype='multipart/form-data'>
+
+		<?php do_action('woocommerce_before_add_to_cart_button'); ?>
+
 		<div class="quantity <?php echo !$product->is_sold_individually() ? 'stuffs-input' : '' ?>">
-			<?php do_action('woocommerce_before_add_to_cart_button'); ?>
 			<?php
 			do_action('woocommerce_before_add_to_cart_quantity');
 
@@ -48,10 +48,15 @@ if ($product->is_in_stock()) : ?>
 			<?php do_action('woocommerce_after_add_to_cart_quantity');
 			?>
 
-			<?php do_action('woocommerce_after_add_to_cart_button'); ?>
 		</div>
-	</form>
 
+		<?php do_action('woocommerce_after_add_to_cart_button'); ?>
+
+	</form>
 	<?php do_action('woocommerce_after_add_to_cart_form'); ?>
+
+<?php else : ?>
+
+	<?php do_action('making_stuffs_product_stock'); ?>
 
 <?php endif; ?>
