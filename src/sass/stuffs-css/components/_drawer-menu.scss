@@ -97,13 +97,13 @@
       }
     }
     .stuffs-drawer-menu__content {
-      padding: $container-padding;
-      height: auto;
+      height: 100%;
       overflow: auto;
     }
     .stuffs-drawer-menu__footer {
       padding: $container-padding;
       border-top: 1px solid rgba(black, 0.1);
+      background-color: $dark-accent;
     }
   }
 }
