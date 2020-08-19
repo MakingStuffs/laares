@@ -92,12 +92,18 @@
 					<div id="basket-menu" class="stuffs-drawer-menu" role="menu" aria-expanded="false">
 						<div class="stuffs-drawer-menu__container">
 							<div class="stuffs-drawer-menu__header">
-								<p><?php echo get_bloginfo('title'); ?></p>
+								<p>Your Basket</p>
 								<button class="stuffs-drawer-menu__close" aria-controls="basket-menu">
 									<span class="tooltip__left">Close</span>
 								</button>
 							</div>
 							<div class="stuffs-drawer-menu__content">
+								<?php
+								/**
+								 * @Hooked making_stuffs_drawer_cart, 10
+								 */
+								do_action('making_stuffs_drawer_basket_contents');
+								?>
 							</div>
 							<div class="stuffs-drawer-menu__footer">
 								<div class="stuffs-social__tiny">
