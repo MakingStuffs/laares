@@ -6,6 +6,12 @@
 .page {
   margin: 0;
 }
+article.page {
+  padding: 1rem;
+  margin: 2rem;
+  background-color: white;
+  box-shadow: 0.2rem 0.2rem 0.6rem rgba(black, 0.1);
+}
 
 .updated:not(.published) {
   display: none;
@@ -44,4 +50,18 @@
 	height: 100%;
   }
 
+}
+
+.woocommerce-cart-form {
+  .actions {
+    padding: 1rem;
+    margin: 1rem;
+    text-align: center;
+  }
+}
+.cart-collaterals {
+  background-color: royalblue;
+  padding: 1rem;
+  margin: 1rem;
+  color: rgba(white, 0.9);
 }

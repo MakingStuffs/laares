@@ -1,99 +1,115 @@
-/**
- * File navigation.js.
- *
- * Handles toggling the navigation menu for small screens and enables TAB key
- * navigation support for dropdown menus.
- */
-( function() {
-	const siteNavigation = document.getElementById( 'site-navigation' );
-
-	// Return early if the navigation don't exist.
-	if ( ! siteNavigation ) {
-		return;
-	}
-
-	const button = siteNavigation.getElementsByTagName( 'button' )[ 0 ];
-
-	// Return early if the button don't exist.
-	if ( 'undefined' === typeof button ) {
-		return;
-	}
-
-	const menu = siteNavigation.getElementsByTagName( 'ul' )[ 0 ];
-
-	// Hide menu toggle button if menu is empty and return early.
-	if ( 'undefined' === typeof menu ) {
-		button.style.display = 'none';
-		return;
-	}
-
-	if ( ! menu.classList.contains( 'nav-menu' ) ) {
-		menu.classList.add( 'nav-menu' );
-	}
-
-	// Toggle the .toggled class and the aria-expanded value each time the button is clicked.
-	button.addEventListener( 'click', function() {
-		siteNavigation.classList.toggle( 'toggled' );
-
-		if ( button.getAttribute( 'aria-expanded' ) === 'true' ) {
-			button.setAttribute( 'aria-expanded', 'false' );
-		} else {
-			button.setAttribute( 'aria-expanded', 'true' );
+document.addEventListener("DOMContentLoaded", () => {
+	const navMenu = document.getElementById("offscreen-menu");
+	const menuList = navMenu.querySelector("ul.menu");
+	const navButton = document.getElementById("offscreen-menu-button");
+	const navContainer = document.querySelector(".stuffs-offscreen-nav__content");
+	const header = document.getElementById("navMenuTitle");
+	const basketButton = document.getElementById("offscreen-basket-button");
+	const userButton = document.getElementById("offscreen-user-button");
+  
+	const getSubMenus = (menu) => menu.querySelectorAll(".sub-menu");
+	const setMenuAttributes = (subMenus) => {
+	  subMenus.forEach((subMenu) => {
+		subMenu.setAttribute(
+		  "data-parent",
+		  subMenu.parentNode.getAttribute("id")
+		);
+	  });
+	};
+	const moveSubMenus = (subMenus, targetContainer) => {
+	  subMenus.forEach((subMenu) => {
+		targetContainer.appendChild(subMenu);
+	  });
+	};
+	const addListenersToParent = (subMenus) => {
+	  subMenus.forEach((subMenu) => {
+		const parent = document.getElementById(`${subMenu.dataset.parent}`);
+		parent.addEventListener("click", function () {
+		  changeMenu.call(this);
+		  changeHeader.call(this);
+		});
+	  });
+	};
+	const stripAnchorFromParentMenus = () => {
+	  const links = document.querySelectorAll(".menu-item-has-children");
+	  links.forEach((link) => {
+		const anchor = link.querySelector("a");
+		link.innerHTML = anchor.textContent;
+		anchor.remove();
+	  });
+	};
+	const resetMenu = () => {
+	  const subMenus = getSubMenus(navMenu);
+	  subMenus.forEach((menu) => menu.removeAttribute("active"));
+	  menuList.setAttribute("active", "");
+	  changeHeader("Main Menu");
+	};
+	function changeHeader(text = null) {
+	  header.style.opacity = 0;
+	  setTimeout(() => {
+		header.innerHTML = text || this.textContent;
+		if (!text) {
+		  const backButton = document.createElement("span");
+		  backButton.classList.add("menu-back-button");
+		  header.appendChild(backButton);
+		  backButton.addEventListener("click", resetMenu);
 		}
-	} );
-
-	// Remove the .toggled class and set aria-expanded to false when the user clicks outside the navigation.
-	document.addEventListener( 'click', function( event ) {
-		const isClickInside = siteNavigation.contains( event.target );
-
-		if ( ! isClickInside ) {
-			siteNavigation.classList.remove( 'toggled' );
-			button.setAttribute( 'aria-expanded', 'false' );
-		}
-	} );
-
-	// Get all the link elements within the menu.
-	const links = menu.getElementsByTagName( 'a' );
-
-	// Get all the link elements with children within the menu.
-	const linksWithChildren = menu.querySelectorAll( '.menu-item-has-children > a, .page_item_has_children > a' );
-
-	// Toggle focus each time a menu link is focused or blurred.
-	for ( const link of links ) {
-		link.addEventListener( 'focus', toggleFocus, true );
-		link.addEventListener( 'blur', toggleFocus, true );
+		header.style.opacity = 1;
+	  }, 300);
 	}
-
-	// Toggle focus each time a menu link with children receive a touch event.
-	for ( const link of linksWithChildren ) {
-		link.addEventListener( 'touchstart', toggleFocus, false );
+	function changeMenu() {
+	  this.parentNode.removeAttribute("active");
+	  document
+		.querySelector(`[data-parent="${this.getAttribute("id")}"]`)
+		.setAttribute("active", "");
 	}
-
-	/**
-	 * Sets or removes .focus class on an element.
-	 */
-	function toggleFocus() {
-		if ( event.type === 'focus' || event.type === 'blur' ) {
-			let self = this;
-			// Move up through the ancestors of the current link until we hit .nav-menu.
-			while ( ! self.classList.contains( 'nav-menu' ) ) {
-				// On li elements toggle the class .focus.
-				if ( 'li' === self.tagName.toLowerCase() ) {
-					self.classList.toggle( 'focus' );
-				}
-				self = self.parentNode;
-			}
-		}
-
-		if ( event.type === 'touchstart' ) {
-			const menuItem = this.parentNode;
-			event.preventDefault();
-			for ( const link of menuItem.parentNode.children ) {
-				if ( menuItem !== link ) {
-					link.classList.remove( 'focus' );
-				}
-			}
-			menuItem.classList.toggle( 'focus' );
-		}
+	function toggleMenu() {
+	  
+	  const menu = document.getElementById(this.getAttribute("data-menu"));
+	  const closeButton = menu.querySelector(".stuffs-close-button");
+  
+	  const outsideClickListener = (event) => {
+		 if (event.target === menu) {
+		   menu.onclick = null;
+		   toggleMenu.call(this);
+		};
+	  };
+  
+	  const removeListeners = () =>
+		document.removeEventListener("click", outsideClickListener);
+  
+	  if (menu.getAttribute("aria-expanded") === "true") {
+		console.log('close');
+		document.body.style.overflowY = "auto";
+		menu.setAttribute("aria-expanded", "false");
+		menu.onclick = null;
+		closeButton.removeEventListener("click", toggleMenu);
+		return resetMenu();
+	  } else {
+		console.log('open');
+		document.body.style.overflowY = "hidden";
+		menu.onclick = outsideClickListener;
+		closeButton.addEventListener("click", toggleMenu);
+		return menu.setAttribute("aria-expanded", "true");
+	  }
 	}
-}() );
+  
+	if (navButton && navMenu) {
+	  navButton.addEventListener("click", toggleMenu);
+	}
+  
+	if (basketButton) {
+	  basketButton.addEventListener("click", toggleMenu);
+	}
+  
+	if (userButton) {
+	  userButton.addEventListener('click', toggleMenu);
+	}
+  
+	const subs = getSubMenus(menuList);
+	setMenuAttributes(subs);
+	moveSubMenus(subs, navContainer);
+	addListenersToParent(subs);
+	stripAnchorFromParentMenus();
+	menuList.setAttribute("active", "");
+  });
