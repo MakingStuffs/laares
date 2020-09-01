@@ -438,6 +438,82 @@ if (!function_exists('making_stuffs_after_shop_loop')) {
 	function making_stuffs_after_shop_loop()
 	{ ?>
 		</section>
-		<?php };
+	<?php };
 }
 add_action('woocommerce_after_shop_loop', 'making_stuffs_after_shop_loop', 10, 0);
+
+/**
+ * Modified wc_cart_totals_coupon_html
+ * 
+ * @param string|WC_Coupon $coupon Coupon data or code.
+ */
+function making_stuffs_cart_totals_coupon_html($coupon)
+{
+
+	if (is_string($coupon)) {
+		$coupon = new WC_Coupon($coupon);
+	}
+
+	$discount_amount_html = '';
+
+	$amount               = WC()->cart->get_coupon_discount_amount($coupon->get_code(), WC()->cart->display_cart_ex_tax);
+	$discount_amount_html = '-' . wc_price($amount);
+
+	if ($coupon->get_free_shipping() && empty($amount)) {
+		$discount_amount_html = __('Free shipping coupon', 'woocommerce');
+	}
+
+	$discount_amount_html = apply_filters('woocommerce_coupon_discount_amount_html', $discount_amount_html, $coupon);
+	$coupon_html          = $discount_amount_html . ' <a href="' . esc_url(add_query_arg('remove_coupon', rawurlencode($coupon->get_code()),  wc_get_cart_url())) . '" class="woocommerce-remove-coupon" data-coupon="' . esc_attr($coupon->get_code()) . '"><i class="stuffs-cancel_presentation"></i><span class="tooltip__top">Remove coupon</span></a>';
+
+	echo wp_kses(apply_filters('woocommerce_cart_totals_coupon_html', $coupon_html, $coupon, $discount_amount_html), array_replace_recursive(wp_kses_allowed_html('post'), array('a' => array('data-coupon' => true)))); // phpcs:ignore PHPCompatibility.PHP.NewFunctions.array_replace_recursiveFound
+}
+
+/**
+ * Remove select2 from woocommerce
+ */
+function making_stuffs_remove_select_woo()
+{
+	if (class_exists('woocommerce')) {
+		wp_dequeue_style('selectWoo');
+		wp_deregister_style('selectWoo');
+		wp_dequeue_script('selectWoo');
+		wp_deregister_script('selectWoo');
+	}
+}
+add_action('wp_enqueue_scripts', 'making_stuffs_remove_select_woo', 100);
+
+/**
+ * Alter the args which are passed to the woocommerce_form_fields_args action
+ * 
+ * @param array arguments to be filtered
+ * @return array filtered array of arguments
+ */
+function making_stuffs_wc_form_fields_filter($args)
+{
+	array_push($args['class'], 'stuffs-input has-label');
+
+	if ($args['type'] === 'country') {
+		array_push($args['class'], 'has-select');
+	}
+
+	if ($args['type'] === 'state') {
+		array_push($args['class'], 'has-select');
+	}
+
+
+	return $args;
+}
+add_filter('woocommerce_form_field_args', 'making_stuffs_wc_form_fields_filter', 10, 1);
+
+/**
+ * Reorders the fields returned by the woocommerce_checkout_fields filter
+ * 
+ * @param array fields to be filtered
+ * @return array reordered list of fields
+ */
+function making_stuffs_checkout_fields_reorder($fields)
+{
+	return $fields;
+}
+add_filter('woocommerce_checkout_fields', 'making_stuffs_checkout_fields_reorder', 10, 1);
