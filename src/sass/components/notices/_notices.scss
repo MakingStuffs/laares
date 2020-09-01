@@ -1,6 +1,4 @@
-.woocommerce-notices-wrapper {
-  margin: 1rem 1rem;
-  box-shadow: 0.2rem 0.2rem 0.6rem rgba(black, 0.1);
+.woocommerce {
 
   .woocommerce-message,
   .woocommerce-info,
@@ -9,7 +7,9 @@
   p.no-comments {
     padding: 1rem;
     text-align: center;
-    color: rgba(white, 0.9);
+    color: rgba(white, 0.9); 
+    width: 100%;
+    box-shadow: 0.2rem 0.2rem 0.6rem rgba(black, 0.1);
   }
   .woocommerce-error {
       border-left: 5px solid rgba(darkred, 1);
@@ -17,11 +17,33 @@
   .woocommerce-message {
     border-left: 5px solid rgba(darkgreen, 1);
   }
-
-  ul.woocommerce-error,
-  ul {
-      margin: 0;
-      padding: 0;
-      list-style-type: none;
+  .woocommerce-info {
+    border-left: 5px solid rgba(royalblue, 1);
   }
+  
+  .woocommerce-form-coupon-toggle,
+  .woocommerce-notices-wrapper {
+    padding:  0 1rem 1rem 1rem;
+    width: 100%;
+  
+    ul.woocommerce-error,
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+  }
+
+  .woocommerce-form-coupon {
+    width: 100%;
+    text-align: center;
+
+  }
+
+  ul.woocommerce-error {
+    margin: 1rem;
+    padding: 1rem;
+    list-style-type: none;
+  }
+
 }

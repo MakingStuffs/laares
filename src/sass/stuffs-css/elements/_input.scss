@@ -17,8 +17,9 @@
     input, 
     button {
         appearance: none;
-        padding: $tiny-padding $md-padding;
+        padding: 0 $md-padding;
         margin: $tiny-margin;
+        border: none;
     };
 
     button,
@@ -33,6 +34,7 @@
         }
     }
 
+    input[type="tel"],
     input[type="number"],
     input[type="email"],
     input[type="search"],
@@ -53,8 +55,10 @@
 
         &.has-icon {
             width: 2rem;
-            height: 2rem;
+            height: calc(100% - $tiny-margin);
             font-size: 1rem;
+            padding: 0.25rem;
+            display: flex;
             
             i {
                 margin: auto;
@@ -64,13 +68,14 @@
             &:hover,
             &:focus {
                 box-shadow: $container-shadow;
-                border-radius: 50%;
+                border-radius: 0 5rem 5rem 0;
                 background-color: $background__link-hover;
                 color: $color__link-hover;
             }
 
             &:focus {
-                border-color: $color__border-button-focus;
+                background-color: $focus;
+                color: $focus-alternate;
                 outline: none;
             }
         }
@@ -94,7 +99,10 @@
 
         label,
         select {
-            padding: $md-padding $big-padding;
+            padding: 0 $md-padding;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         label {
@@ -111,7 +119,7 @@
             border: none;
             background-color: transparent;
             border-radius: 0 5rem 5rem 0;
-            padding-right: $big-margin;
+            padding: $tiny-padding;
             cursor: pointer;
             transition: 0.3s ease;
             position: relative;

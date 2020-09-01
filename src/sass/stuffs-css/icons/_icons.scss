@@ -42,6 +42,21 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.stuffs-update {
+  &:before {
+    content: $stuffs-update; 
+  }
+}
+.stuffs-refresh {
+  &:before {
+    content: $stuffs-refresh; 
+  }
+}
+.stuffs-add_circle_outline {
+  &:before {
+    content: $stuffs-add_circle_outline; 
+  }
+}
 .stuffs-cancel_presentation {
   &:before {
     content: $stuffs-cancel_presentation; 

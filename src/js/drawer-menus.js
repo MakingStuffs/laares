@@ -10,7 +10,10 @@ import { msQueryAll } from "making-stuffs-queries";
     const associatedMenu = Array.from(menus).find(
       (menu) => menu.id === this.getAttribute("aria-controls")
     );
-    if ( associatedMenu.getAttribute("aria-expanded") === "true" ) {
+    console.log(associatedMenu);
+    console.log(this);
+    console.log(menus);
+    if (associatedMenu.getAttribute("aria-expanded") === "true") {
       associatedMenu.setAttribute("aria-expanded", "false");
       associatedMenu.blur();
       this.blur();

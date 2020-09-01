@@ -1,7 +1,6 @@
 .sm-margin {
     margin: $small-margin;
 }
-
 .sm-margin-r {
     margin-right: $small-margin;
 }
@@ -45,6 +44,14 @@
 .big-margin-b {
     margin-bottom: $big-margin;
 }
+
+.auto-margin {
+    margin: auto;
+}
+
 .auto-margin-r {
     margin-right: auto;
+}
+.auto-margin-l {
+    margin-left: auto;
 }
