@@ -8,7 +8,7 @@
 }
 article.page {
   padding: 1rem;
-  margin: 2rem;
+  margin: 1rem;
   background-color: white;
   box-shadow: 0.2rem 0.2rem 0.6rem rgba(black, 0.1);
 }
@@ -68,11 +68,9 @@ body.woocommerce {
   .woocommerce-cart-form {
     table-layout: fixed;
     max-width: 750px;
-    margin: auto;
     flex-basis: 400px;
     flex-grow: 1;
     width: 55%;
-    margin: 1rem;
 
     .actions {
       margin: 4rem 0;
@@ -91,7 +89,7 @@ body.woocommerce {
     }
 
     tr.cart_item {
-      margin: 0 1rem;
+      margin: 0;
       padding: 2rem 0;
       display: flex;
       flex-wrap: wrap;
@@ -184,7 +182,6 @@ body.woocommerce {
     align-self: flex-start;
     flex-shrink: 1;
     flex-grow: 1;
-    margin: 1rem;
 
     .cart_totals {
       max-width: 550px;
@@ -222,11 +219,12 @@ body.woocommerce {
     }
   }
 }
-
+table.shop_table_responsive tr td.product-quantity::before {
+  content: none;
+}
 .woocommerce-additional-fields,
 .woocommerce-checkout-review-order,
 .woocommerce-billing-fields {
-  margin: 1rem;
   ul {
     margin: 0;
     padding: 0;
@@ -310,6 +308,7 @@ form.woocommerce-checkout {
     align-self: flex-start;
     flex-shrink: 1;
     flex-grow: 1;
+    flex-basis: 300px;
 
     th,
     td {
@@ -334,19 +333,21 @@ form.woocommerce-checkout {
       }
 
       label {
+        line-height: 1;
         cursor: pointer;
         display: flex;
         justify-content: flex-start;
         align-items: center;
         font-weight: 900;
         flex-wrap: wrap;
+        width: calc(100% - 3rem);
 
         img {
           max-height: 30px;
-          margin-left: 1rem;
+          margin: 0 0.5rem;
         }
-
         a {
+          margin-right: 1rem;
           margin-top: 1rem;
           width: 100%;
         }
@@ -361,6 +362,9 @@ form.woocommerce-checkout {
 @media only screen and (min-width: 768px) {
   .woocommerce-cart-form {
     .woocommerce-cart-form__contents {
+      td.product-remove {
+        display: none;
+      }
       thead {
         tr {
           th.product-remove,
@@ -398,5 +402,11 @@ form.woocommerce-checkout {
         }
       }
     }
+  }
+  .checkout-customer-details,
+  .woocommerce-checkout-review-order,
+  .cart-collaterals,
+  .woocommerce-cart-form {
+    margin: 1rem;
   }
 }
