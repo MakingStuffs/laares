@@ -63,6 +63,22 @@
 								</button>
 							</div>
 							<div class="stuffs-drawer-menu__content">
+								<p class="stuffs-drawer-menu-content__header">Your Account</p>
+								<?php
+								if (is_user_logged_in()) { ?>
+									<ul class="stuffs-drawer-menu__links">
+										<li class="stuffs-drawer-menu__link"><a href="<?php echo get_site_url(); ?>/my-account" title="Go to your account dashboard">Dashboard</a></li>
+										<li class="stuffs-drawer-menu__link"><a href="<?php echo get_site_url(); ?>/my-account/orders" title="View your previous orders">Orders</a></li>
+										<li class="stuffs-drawer-menu__link"><a href="<?php echo get_site_url(); ?>/my-account/edit-address" title="View/edit your saved addresses">Addresses</a></li>
+										<li class="stuffs-drawer-menu__link"><a href="<?php echo get_site_url(); ?>/my-account/edit-account" title="View/edit your account details">Account Details</a></li>
+										<li class="stuffs-drawer-menu__link"><a href="<?php echo wp_logout_url($_SERVER['REQUEST_URI']); ?>" title="Logout from <?php echo get_bloginfo('name'); ?>">Logout</a></li>
+									</ul>
+								<?php } else { ?>
+									<ul class="stuffs-drawer-menu__links">
+										<li class="stuffs-drawer-menu__link"><a href="<?php echo get_site_url(); ?>/wp-login.php" title="Login to <?php echo get_bloginfo('name'); ?>">Login</a></li>
+										<li class="stuffs-drawer-menu__link"><a href="<?php echo get_site_url(); ?>/wp-login.php?action=register" title="Register for <?php echo get_bloginfo('name'); ?>">Register</a></li>
+									</ul>
+								<?php } ?>
 							</div>
 							<div class="stuffs-drawer-menu__footer">
 								<div class="stuffs-social__tiny">
@@ -145,16 +161,20 @@
 									<span class="tooltip__left">Close</span>
 								</button>
 							</div>
-							<div class="stuffs-drawer-menu__content">
+							<div class="stuffs-drawer-menu__content stuffs-column justify-between">
+								<p class="stuffs-drawer-menu-content__header" id="menu-title">Main Menu</p>
 								<?php
 								wp_nav_menu(
 									array(
 										'theme_location' => 'menu-1',
 										'menu_id'        => 'primary-menu-list',
-										'container'		 => 'ul'
+										'menu_class'	=> 'stuffs-drawer-menu__links'
 									)
 								);
 								?>
+								<button id="menu-back-button" aria-hidden="true" class="stuffs-drawer-menu-content__back-button">
+									<i class="stuffs-claret-left"></i>
+								</button>
 							</div>
 							<div class="stuffs-drawer-menu__footer">
 								<div class="stuffs-social__tiny">
