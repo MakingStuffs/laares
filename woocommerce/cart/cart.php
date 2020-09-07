@@ -125,7 +125,7 @@ do_action('woocommerce_before_cart'); ?>
                                 );
                             }
                             ?>
-                            <div class="stuffs-input has-button mw-100px auto-margin-l">
+                            <div class="stuffs-input has-button mxw-100px auto-margin-l">
                                 <?php echo apply_filters('woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item); // PHPCS: XSS ok.
                                 ?>
                                 <button type="submit" class="button has-icon" name="update_cart" value="<?php esc_attr_e('Update cart', 'woocommerce'); ?>">
