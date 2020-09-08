@@ -10,9 +10,6 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
-		<?php the_title( '<h2 class="entry-title txt-center">', '</h1>' ); ?>
-	</header><!-- .entry-header -->
 
 	<?php making_stuffs_post_thumbnail(); ?>
 
