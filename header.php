@@ -147,7 +147,7 @@
 			<div class="stuffs-row justify-between align-center">
 				<?php get_sidebar(); ?>
 				<nav id="site-navigation" class="main-navigation auto-margin-r">
-					<button class="stuffs-drawer-menu__button" aria-controls="primary-menu" aria-expanded="false">
+					<button class="stuffs-drawer-menu__button" aria-controls="primary-menu">
 						<i class="stuffs-burger-menu"></i>
 						<span class="tooltip__right">
 							<?php esc_html_e('Primary Menu', 'making-stuffs'); ?>
