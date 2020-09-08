@@ -63,7 +63,7 @@ do_action('woocommerce_before_mini_cart'); ?>
                                 ?>
                             </a>
                         <?php endif; ?>
-                        <div class="stuffs-column">
+                        <div class="stuffs-column justify-center align-center grow">
                             <div class="stuffs-row">
                                 <a href="<?php echo esc_url($product_permalink); ?>">
                                     <?php echo $product_name; ?>
@@ -76,7 +76,6 @@ do_action('woocommerce_before_mini_cart'); ?>
                                 ?>
                             </div>
                         </div>
-
                     </li>
             <?php
                 }
