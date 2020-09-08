@@ -1,26 +1,72 @@
 .menu-primary-container {
-	transition: 0.3s ease;
-	flex-grow: 1;
+  transition: 0.3s ease;
+  flex-grow: 1;
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    transition: 0.3s ease;
+
+    li {
+      position: relative;
+      transition: 0.3s ease;
+      margin: 0.25rem 0.5rem;
+
+      a {
+        display: flex;
+        width: 100%;
+        padding: 0.5rem 2rem 0.5rem 1rem;
+        border-radius: 5rem;
+        align-items: center;
+        position: relative;
+
+        &::after {
+          font-family: "stuffs-icons";
+          content: "\e905";
+          font-size: 1.5rem;
+          display: inline-block;
+          transition: left 0.4s ease 0s;
+          opacity: 0;
+          left: 0;
+          margin-left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          position: absolute;
+        }
+
+        &:hover {
+          &::after {
+            left: calc(100% - 2rem);
+            opacity: 1;
+          }
+        }
+      }
+
+      ul {
+        display: none;
+      }
+    }
+  }
 }
 
 .comment-navigation,
 .posts-navigation,
 .post-navigation {
+  .site-main & {
+    margin: 0 0 1.5em;
+  }
 
-	.site-main & {
-		margin: 0 0 1.5em;
-	}
+  .nav-links {
+    display: flex;
+  }
 
-	.nav-links {
-		display: flex;
-	}
+  .nav-previous {
+    flex: 1 0 50%;
+  }
 
-	.nav-previous {
-		flex: 1 0 50%;
-	}
-
-	.nav-next {
-		text-align: end;
-		flex: 1 0 50%;
-	}
+  .nav-next {
+    text-align: end;
+    flex: 1 0 50%;
+  }
 }
