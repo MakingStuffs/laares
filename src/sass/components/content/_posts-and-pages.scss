@@ -7,10 +7,7 @@
   margin: 0;
 }
 article.page {
-  padding: 1rem;
-  margin: 1rem;
-  background-color: white;
-  box-shadow: 0.2rem 0.2rem 0.6rem rgba(black, 0.1);
+
 }
 
 .updated:not(.published) {
@@ -20,7 +17,7 @@ article.page {
 .page-content,
 .entry-content,
 .entry-summary {
-  margin: 1.5em 0 0;
+  margin: 0;
 }
 
 .page-links {
@@ -229,19 +226,6 @@ table.shop_table_responsive tr td.product-quantity::before {
     margin: 0;
     padding: 0;
   }
-
-  .form-row {
-    flex-direction: column;
-
-    &.stuffs-input {
-      border-radius: 10px;
-      &.has-label {
-        label {
-          border-radius: 10px 10px 0 0;
-        }
-      }
-    }
-  }
 }
 
 .woocommerce-additional-fields__field-wrapper,
@@ -275,6 +259,7 @@ form.woocommerce-checkout {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  padding: 1rem;
 
   .woocommerce-NoticeGroup-checkout {
     width: 100%;
@@ -357,6 +342,24 @@ form.woocommerce-checkout {
       }
     }
   }
+
+  .woocommerce-checkout-payment {
+
+    .place-order {
+      text-align: center;
+
+      .button {
+        padding: 1rem;
+        background-color: aliceblue;
+        color: rgba(black, 0.9);
+
+        &:hover {
+          background-color: $color__background-button-hover;
+          color: $color__text-button-hover
+        }
+      }
+    }
+  }
 }
 
 @media only screen and (min-width: 768px) {
@@ -387,22 +390,6 @@ form.woocommerce-checkout {
 }
 
 @media only screen and (min-width: 460px) {
-  .woocommerce-additional-fields,
-  .woocommerce-checkout-review-order,
-  .woocommerce-billing-fields {
-    .form-row {
-      flex-direction: row;
-
-      &.stuffs-input {
-        border-radius: 5rem;
-        &.has-label {
-          label {
-            border-radius: 5rem 0 0 5rem;
-          }
-        }
-      }
-    }
-  }
   .checkout-customer-details,
   .woocommerce-checkout-review-order,
   .cart-collaterals,
