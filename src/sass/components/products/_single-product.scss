@@ -133,14 +133,12 @@
         flex-wrap: wrap;
         padding: 0 1rem;
 
-        input.qty {
-          max-width: 75px;
-        }
-
         div.variations_button,
         div.quantity {
           align-self: center;
           margin: 1rem auto;
+          flex-direction: row;
+          border-radius: 5rem;
 
           button.single_add_to_cart_button {
             width: unset;

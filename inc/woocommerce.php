@@ -311,7 +311,6 @@ if (!function_exists('making_stuffs_single_add_to_cart_button')) {
 
 		if ($product->is_sold_individually()) : ?>
 			<button type="submit" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>" class="no-input single_add_to_cart_button button alt has-icon">
-				Add to Basket
 				<i class="stuffs-basket"></i>
 				<span class="tooltip__top">
 					<?php echo esc_html($product->single_add_to_cart_text()); ?>
@@ -321,7 +320,6 @@ if (!function_exists('making_stuffs_single_add_to_cart_button')) {
 		<?php else : ?>
 
 			<button type="submit" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>" class="single_add_to_cart_button button alt has-icon">
-				<?php echo $for_group ? '' : 'Add to cart'; ?>
 				<i class="stuffs-basket"></i>
 				<span class="tooltip__top">
 					<?php echo esc_html($product->single_add_to_cart_text()); ?>

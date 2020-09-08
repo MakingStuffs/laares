@@ -72,6 +72,18 @@ body.woocommerce {
     .actions {
       margin: 4rem 0;
       text-align: center;
+
+      .coupon {
+        border-radius: 5rem;
+        flex-direction: row;
+        label {
+          align-self: unset;
+          border-radius: 5rem 0 0 5rem;
+        }
+        button {
+          color: black;
+        }
+      }
     }
 
     thead {
@@ -101,6 +113,13 @@ body.woocommerce {
       td.product-price,
       td.product-subtotal {
         flex-basis: 100%;
+        .stuffs-input {
+          flex-direction: row;
+          border-radius: 5rem;
+          button {
+            color: black;
+          }
+        }
       }
 
       td.product-price {
