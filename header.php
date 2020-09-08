@@ -167,9 +167,11 @@
 								<?php
 								wp_nav_menu(
 									array(
-										'theme_location' => 'menu-1',
-										'menu_id'        => 'primary-menu-list',
-										'menu_class'	=> 'stuffs-drawer-menu__links'
+										'theme_location' 	=> 'menu-1',
+										'menu_id'        	=> 'primary-menu-list',
+										'menu_class'		=> 'stuffs-drawer-menu__links',
+										'container'			=> 'div',
+										'container_class'	=> 'menu-primary-container'
 									)
 								);
 								?>
