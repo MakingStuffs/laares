@@ -1,63 +1,66 @@
-.woocommerce {
-  .woocommerce-message,
-  .woocommerce-info,
-  .woocommerce-error,
-  .woocommerce-noreviews,
-  p.no-comments {
-    padding: 1rem;
-    text-align: center;
-    color: rgba(white, 0.9);
-    width: 100%;
-    box-shadow: 0.2rem 0.2rem 0.6rem rgba(black, 0.1);
-  }
-  .woocommerce-error {
-    border-left: 5px solid rgba(darkred, 1);
-  }
-  .woocommerce-message {
-    border-left: 5px solid rgba(darkgreen, 1);
-  }
-  .woocommerce-info {
-    border-left: 5px solid rgba(royalblue, 1);
-  }
+.woocommerce-message,
+.woocommerce-info,
+.woocommerce-error,
+.woocommerce-noreviews,
+p.no-comments {
+  padding: 1rem;
+  text-align: center;
+  color: rgba(white, 0.9);
+  width: auto;
+  box-shadow: 0.2rem 0.2rem 0.6rem rgba(black, 0.1);
+  margin: 1rem;
+}
+.woocommerce-error {
+  border-left: 5px solid rgba(darkred, 1);
+}
+.woocommerce-message {
+  border-left: 5px solid rgba(darkgreen, 1);
+}
+.woocommerce-info {
+  border-left: 5px solid rgba(royalblue, 1);
+}
 
-  .woocommerce-form-login-toggle,
-  .woocommerce-form-coupon-toggle,
-  .woocommerce-notices-wrapper {
-    width: 100%;
-    margin: 1rem;
+.woocommerce-form-login-toggle,
+.woocommerce-form-coupon-toggle {
+  margin: 1rem;
+}
 
-    ul.woocommerce-error,
-    ul {
-      margin: 0;
-      padding: 0;
-      list-style-type: none;
-    }
-  }
-  
-  .form-row.create-account,
-  .woocommerce-form-login {
-    .woocommerce-form__input-checkbox {
-      width: 1.5rem;
-      height: 1.5rem;
-      cursor: pointer;
-    }
+.woocommerce-form-login-toggle,
+.woocommerce-form-coupon-toggle,
+.woocommerce-notices-wrapper {
+  width: auto;
 
-    .woocommerce-form__label-for-checkbox {
-      span {
-        vertical-align: super;
-      }
-    }
-  }
-
-  .woocommerce-form-login-toggle,
-  .woocommerce-form-coupon {
-    width: 100%;
-    text-align: center;
-  }
-
-  ul.woocommerce-error {
+  ul.woocommerce-error,
+  ul {
     margin: 1rem;
     padding: 1rem;
     list-style-type: none;
   }
+}
+
+.form-row.create-account,
+.woocommerce-form-login {
+  .woocommerce-form__input-checkbox {
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+  }
+
+  .woocommerce-form__label-for-checkbox {
+    span {
+      vertical-align: super;
+    }
+  }
+}
+
+.woocommerce-form-login-toggle,
+.woocommerce-form-coupon {
+  width: 100%;
+  text-align: center;
+}
+
+ul.woocommerce-error {
+  margin: 1rem;
+  padding: 1rem;
+  list-style-type: none;
 }
