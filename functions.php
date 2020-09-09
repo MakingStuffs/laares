@@ -49,12 +49,9 @@ if (!function_exists('making_stuffs_setup')) :
 		 */
 		add_theme_support('post-thumbnails');
 
-		// This theme uses wp_nav_menu() in one location.
-		register_nav_menus(
-			array(
-				'menu-1' => esc_html__('Primary', 'making-stuffs')
-			)
-		);
+		// This theme uses wp_nav_menu() in two locations.
+		register_nav_menu('menu-1', esc_html__('Primary menu. Located in the offscreen drawer. Menu items with children will not redirect to a new page, they act as placeholders.', 'making-stuffs'));
+		register_nav_menu('menu-2', esc_html__('Desktop menu. Only visible on screens larger than 650px. Does not support dropdowns.', 'making-stuffs'));
 
 		/*
 		 * Switch default core markup for search form, comment form, and comments
