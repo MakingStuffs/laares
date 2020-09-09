@@ -1,5 +1,13 @@
 .widget {
-	margin: 0 0 1.5em;
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid rgba(0,0,0,0.1);
+	border-radius: 10px;
+	
+	.widget-title {
+		margin-top: 0;
+		text-align: center;
+	}
 
 	// Make sure select elements fit in widgets.
 	select {
