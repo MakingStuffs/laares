@@ -1,44 +1,69 @@
 .stuffs-drawer-menu__content {
-    .drawer-cart {
-        position: relative;
+  .drawer-cart {
+    position: relative;
 
-        ul.cart_list {
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
+    ul.cart_list {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
 
-            li {
-                display: flex;
-                margin: 0.5rem 1rem;
-                padding: 1rem;
-                background-color: #eee;
+      li {
+        display: flex;
+        margin: 0.5rem 1rem;
+        padding: 1rem;
+        background-color: #eee;
 
-                &:first-child {
-                    margin-top: 1rem;
-                }
-
-                &:last-child {
-                    margin-bottom: 1rem;
-                }
-
-                img {
-                    width: 75px;
-                    height: 75px;
-                }
-            }
+        &:first-child {
+          margin-top: 1rem;
         }
 
-        .drawer-cart-footer {
-            position: sticky;
-            bottom: 0;
-            background-color: royalblue;
-            color: rgba(#fff, 0.9);
-            border-top: 1px solid rgba(black, 0.1);
-            padding: 1rem;
-
-            p {
-                margin: 0;
-            }
+        &:last-child {
+          margin-bottom: 1rem;
         }
+
+        img {
+          width: 75px;
+          height: 75px;
+        }
+      }
     }
+
+    .drawer-cart-footer {
+      position: sticky;
+      bottom: 0;
+      background-color: royalblue;
+      color: rgba(#fff, 0.9);
+      border-top: 1px solid rgba(black, 0.1);
+      padding: 1rem;
+
+      p {
+        margin: 0;
+      }
+    }
+  }
+
+  .woocommerce-mini-cart__empty-message {
+    padding: 1rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+}
+
+.stuffs-drawer-menu__button {
+    position: relative;
+  .cart-count {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    background-color: darkred;
+    color: rgba(white, 0.8);
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
