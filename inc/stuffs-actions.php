@@ -146,7 +146,70 @@ if (!function_exists('making_stuffs_home_about_section')) {
                 <a href="#" class="home-about-section-footer__button" title="Call to action">Do Something</a>
             </div>
         </section>
-<?php }
+    <?php }
 }
 add_action('stuffs_homepage_content', 'making_stuffs_home_about_section', 20, 0);
+
+/**
+ * Hook into the nav_menu_css_class filter in order to allow us 
+ * to add a class to wp_nav_menu li elements via setting the 'li_class' 
+ * argument
+ * 
+ */
+if (!function_exists('stuffs_wp_nav_li_class')) {
+    function stuffs_wp_nav_li_class($classes, $items, $args)
+    {
+        if (isset($args->li_class)) {
+            $classes[] = $args->li_class;
+        }
+        return $classes;
+    };
+}
+add_filter('nav_menu_css_class', 'stuffs_wp_nav_li_class', 1, 3);
+
+/**
+ * Hook into the nav_menu_submenu_css_class filter and add a class to 
+ * all sub menu items where submenu_class is set.
+ */
+if (!function_exists('stuffs_wp_nav_submenu_class')) {
+    function stuffs_wp_nav_submenu_class($classes, $args)
+    {
+        if (isset($args->submenu_class)) {
+            $classes[] = $args->submenu_class;
+        }
+        return $classes;
+    }
+}
+add_filter('nav_menu_submenu_css_class', 'stuffs_wp_nav_submenu_class', 10, 2);
+if (!function_exists('stuffs_nav_menu_callback')) {
+    function stuffs_nav_menu_callback($args)
+    {
+        $pages = get_pages();
+        $containerOpen = '<' 
+            . (!empty($args['container']) ? $args['container'] : 'div')
+            . ' class="'
+            . (!empty($args['container_class']) ? $args['container_class'] : "desktop-menu__container")
+            . '">';
+        $pageList = '';
+        foreach ($pages as $page) {
+
+            $pageList .= '<li class="desktop-menu__link">'
+                . '<a href="'
+                . get_page_link($page->ID)
+                . '"'
+                . 'title="Go to '
+                . $page->post_title
+                . '">'
+                . $page->post_title 
+                . '</a>'
+                . '</li>';
+        } ?>
+        <?php echo $containerOpen; ?>
+            <ul class="desktop-menu__links">
+                <?php echo $pageList; ?>
+            </ul>
+        </div>
+<?php
+    }
+}
 ?>
