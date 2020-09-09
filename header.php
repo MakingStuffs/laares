@@ -75,8 +75,8 @@
 									</ul>
 								<?php } else { ?>
 									<ul class="stuffs-drawer-menu__links">
-										<li class="stuffs-drawer-menu__link"><a href="<?php echo get_site_url(); ?>/wp-login.php" title="Login to <?php echo get_bloginfo('name'); ?>">Login</a></li>
-										<li class="stuffs-drawer-menu__link"><a href="<?php echo get_site_url(); ?>/wp-login.php?action=register" title="Register for <?php echo get_bloginfo('name'); ?>">Register</a></li>
+										<li class="stuffs-drawer-menu__link"><a href="<?php echo get_site_url(); ?>/my-account" title="Login to <?php echo get_bloginfo('name'); ?>">Login</a></li>
+										<li class="stuffs-drawer-menu__link"><a href="<?php echo get_site_url(); ?>/my-account?register" title="Register for <?php echo get_bloginfo('name'); ?>">Register</a></li>
 									</ul>
 								<?php } ?>
 							</div>
@@ -104,6 +104,13 @@
 					<button class="stuffs-drawer-menu__button" aria-label="Basket" aria-controls="basket-menu">
 						<i class="stuffs-basket"></i>
 						<span class="tooltip__left">Basket</span>
+						<?php
+						$cartCount = WC()->cart->get_cart_contents_count();
+						if ($cartCount > 0) : ?>
+							<span class="cart-count">
+								<?php echo $cartCount; ?>
+							</span>
+						<?php endif; ?>
 					</button>
 					<div id="basket-menu" class="stuffs-drawer-menu" role="menu" aria-expanded="false">
 						<div class="stuffs-drawer-menu__container">
@@ -147,7 +154,7 @@
 			</div><!-- .stuffs-row -->
 			<div class="stuffs-row justify-between align-center">
 				<?php get_sidebar(); ?>
-				<nav id="site-navigation" class="main-navigation auto-margin-r">
+				<nav id="site-navigation" class="main-navigation">
 					<button class="stuffs-drawer-menu__button" aria-controls="primary-menu">
 						<i class="stuffs-burger-menu"></i>
 						<span class="tooltip__right">
@@ -201,6 +208,28 @@
 						</div>
 					</div>
 				</nav><!-- #site-navigation -->
+				<nav id="desktop-navigation" class="desktop-menu__wrapper">
+					<button class="desktop-menu__scroll-button" data-direction="left">
+						<i class="stuffs-claret-left"></i>
+					</button>
+					<?php
+					wp_nav_menu(
+						array(
+							'theme_location' 	=> 'menu-2',
+							'container'			=> 'div',
+							'container_class'	=> 'desktop-menu__container',
+							'menu_class'		=> 'desktop-menu__links',
+							'menu_id'			=> 'desktop-menu',
+							'li_class'			=> 'desktop-menu__link',
+							'depth'				=> 1,
+							'fallback_cb'		=> 'stuffs_nav_menu_callback'
+						)
+					);
+					?>
+					<button class="desktop-menu__scroll-button" data-direction="right">
+						<i class="stuffs-claret-right"></i>
+					</button>
+				</nav>
 				<div class="stuffs-search-bar">
 					<input class="stuffs-search-bar__input">
 					<button type="submit" class="stuffs-search-bar__submit">
