@@ -4,10 +4,10 @@
 
   .stuffs-card-deck__card {
     width: calc((100% / 6) - 2rem);
-    min-width: 150px;
+    min-width: 125px;
     background-color: $container-background;
     border-radius: 10px;
-    margin: 1rem;
+    margin: 0.5rem;
     border: 1px solid rgba(black, 0.1);
     cursor: pointer;
     transition: 0.3s ease;
