@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const itemsWithSubMenus = Array.from(
     menuItemList.querySelectorAll(".menu-item-has-children")
   );
+
   const subMenus = (() => {
     const subArray = Array.from(
       menuItemList.querySelectorAll(".sub-menu")
@@ -64,6 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     return menu;
   };
+  
   const getParentText = (id) => {
 
     const parentId = id
