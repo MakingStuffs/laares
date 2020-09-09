@@ -50,6 +50,59 @@
   }
 }
 
+.desktop-menu__wrapper {
+  overflow-x: hidden;
+  position: relative;
+  display: none;
+
+  &.scrollable {
+    .desktop-menu__scroll-button {
+      display: inline-block;
+    }
+  }
+
+  .desktop-menu__scroll-button {
+    position: absolute;
+    color: black;
+    background-color: transparent;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0.15rem;
+    display: none;
+
+    &[data-direction="left"] {
+      left: 0.5rem;
+    }
+    &[data-direction="right"] {
+      right: 0.5rem;
+    }
+  }
+
+  .desktop-menu__container {
+    margin: 0 3rem;
+    overflow-x: auto;
+
+    ul,
+    .desktop-menu__links {
+      display: flex;
+      padding: 0;
+      margin: 0;
+
+      .desktop-menu__link {
+        display: inline-block;
+        white-space: nowrap;
+
+        a {
+          margin: 0 0.25rem;
+          padding: 0 0.5rem;
+          border-radius: 5rem;
+          font-weight: normal;
+        }
+      }
+    }
+  }
+}
+
 .comment-navigation,
 .posts-navigation,
 .post-navigation {
@@ -68,5 +121,11 @@
   .nav-next {
     text-align: end;
     flex: 1 0 50%;
+  }
+}
+
+@media only screen and (min-width: 650px) {
+  .desktop-menu__wrapper {
+    display: block;
   }
 }
