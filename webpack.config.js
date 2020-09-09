@@ -7,7 +7,7 @@ module.exports = {
   mode: "development",
   devtool: "inline-source-map",
   entry: {
-    frontend: ["./src/js/drawer-menus.js", "./src/js/navigation.js", "./src/js/notices.js", "./src/sass/style.scss"],
+    frontend: ["./src/js/drawer-menus.js", "./src/js/desktop-nav.js", "./src/js/navigation.js", "./src/js/notices.js", "./src/sass/style.scss", "./src/js/login-toggle.js"],
     backend: "./src/js/customizer.js",
   },
   module: {
