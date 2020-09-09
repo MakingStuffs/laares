@@ -1,0 +1,13 @@
+.account-login-register-form {
+    padding: 1rem;
+    margin: 1rem auto;
+    max-width: 550px;
+    width: calc(100% - 1rem);
+    background-color: white;
+    box-shadow: 0.2rem 0.2rem 0.6rem rgba(0,0,0,0.1);
+    display: none;
+
+    &.is-active {
+        display: block;
+    }
+}
